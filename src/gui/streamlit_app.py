@@ -9,7 +9,6 @@ import random
 from music21 import stream, metadata
 from datetime import datetime
 from typing import Optional, Dict, Any
-
 import sys
 from pathlib import Path
 
@@ -17,15 +16,21 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.core import (
-    roman_to_chord,
-    generate_progression,
-    progression_to_part,
-    generate_melody_part,
-    analyze_harmony,
-    print_analysis
-)
-from src.utils import create_musicxml_download
+# 오류 처리를 강화한 import
+try:
+    from src.core import (
+        roman_to_chord,
+        generate_progression,
+        progression_to_part,
+        generate_melody_part,
+        analyze_harmony,
+        print_analysis
+    )
+    from src.utils import create_musicxml_download
+except ImportError as e:
+    st.error(f"모듈을 가져올 수 없습니다: {e}")
+    st.info("필요한 패키지를 설치해주세요: pip install -r requirements.txt")
+    st.stop()
 
 # 페이지 설정
 st.set_page_config(
