@@ -13,7 +13,7 @@ AI 기반 코드 진행 자동 생성 웹 애플리케이션입니다. Streamlit
 ### 🎶 멜로디 생성
 - **코드 기반 멜로디**: 생성된 코드에 맞는 멜로디 라인
 - **리듬 패턴**: 다양한 리듬 옵션 (전체, 반, 4분, 8분음표)
-- **표현 기법**: 이음줄, 붙임줄 지원
+- **표현 기법**: 이음줄, 붙임줄 지원 (기본값: 해제)
 - **옥타브 제한**: 적절한 음역대 유지
 
 ### 📊 사용자 인터페이스
@@ -23,9 +23,9 @@ AI 기반 코드 진행 자동 생성 웹 애플리케이션입니다. Streamlit
 - **MusicXML 내보내기**: 표준 악보 형식 다운로드
 
 ### 🛠️ 추가 도구
-- **코어 모듈**: `chord_progression_generator.py` - 독립 실행 가능한 코드 진행 생성기
-- **MusicXML 편집기**: `musicxml_editor.py` - MusicXML 파일 편집 및 변환 도구
-- **배포 가이드**: `STREAMLIT_DEPLOY.md` - Streamlit Cloud 배포 방법
+- **tkinter GUI**: 데스크톱 애플리케이션
+- **MusicXML 편집기**: MusicXML 파일 편집 및 변환 도구
+- **배포 가이드**: Streamlit Cloud 배포 방법
 
 ## 🚀 설치 및 실행
 
@@ -96,8 +96,8 @@ http://localhost:8501
 ### 멜로디 설정
 - **멜로디 추가**: 코드 진행에 맞는 멜로디 생성
 - **멜로디만 출력**: 코드 없이 멜로디만 표시
-- **이음줄 사용**: 프레이즈 단위 이음줄 추가
-- **붙임줄 사용**: 마디 넘어가는 같은 음 연결
+- **이음줄 사용**: 프레이즈 단위 이음줄 추가 (기본값: 해제)
+- **붙임줄 사용**: 마디 넘어가는 같은 음 연결 (기본값: 해제)
 
 ## 🎼 생성되는 코드 진행 패턴
 
@@ -123,6 +123,8 @@ chordgenerator/
 ├── README.md                     # 프로젝트 문서
 ├── LICENSE                       # MIT 라이선스
 ├── .gitignore                    # Git 무시 파일
+├── .streamlit/                   # Streamlit 설정
+│   └── config.toml
 ├── src/                          # 소스 코드
 │   ├── core/                     # 핵심 기능 모듈
 │   │   ├── __init__.py
@@ -137,8 +139,8 @@ chordgenerator/
 │       └── file_utils.py         # 파일 처리 유틸리티
 ├── docs/                         # 문서
 │   └── deployment.md             # 배포 가이드
-├── examples/                     # 예제 파일
-└── tests/                        # 테스트 코드
+└── examples/                     # 예제 파일
+    └── chord_progression_generator_legacy.py
 ```
 
 ## 🛠️ 기술 스택
@@ -161,6 +163,22 @@ chordgenerator/
 - **MusicXML**: 표준 악보 형식
 - **호환 프로그램**: MuseScore, Finale, Sibelius, Dorico
 - **파일명**: `{Key}_{Mode}_progression_{Timestamp}.musicxml`
+
+## 🌐 Streamlit Cloud 배포
+
+### 배포 설정
+```
+Repository: YuHyungmin1226/chordgenerator
+Main file path: src/gui/streamlit_app.py
+Python version: 3.8+
+Requirements file: requirements.txt
+```
+
+### 배포 URL
+배포가 완료되면 다음과 같은 URL로 접근 가능:
+```
+https://chordgenerator-xxxxx.streamlit.app
+```
 
 ## 🔧 커스터마이징
 

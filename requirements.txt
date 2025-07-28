@@ -1,4 +1,5 @@
 # 코드 진행 생성기 의존성 패키지
+# AI 기반 코드 진행 자동 생성 도구
 
 # 웹 애플리케이션 프레임워크
 streamlit>=1.28.0
@@ -10,4 +11,9 @@ music21>=9.1.0
 psutil>=5.9.0
 
 # 타입 힌트 지원
-typing-extensions>=4.0.0 
+typing-extensions>=4.0.0
+
+# 개발 도구 (선택사항)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0 
