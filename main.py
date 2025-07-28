@@ -70,13 +70,14 @@ def main():
             import subprocess
             import os
             
-            # Streamlit 앱 실행
+            # Streamlit 앱 실행 (절대 경로 사용)
             streamlit_app_path = project_root / "src" / "gui" / "streamlit_app.py"
             subprocess.run([
                 sys.executable, "-m", "streamlit", "run", 
                 str(streamlit_app_path),
                 "--server.port", "8501",
-                "--server.address", "localhost"
+                "--server.address", "localhost",
+                "--server.headless", "true"
             ])
             
         elif args.musicxml_editor:

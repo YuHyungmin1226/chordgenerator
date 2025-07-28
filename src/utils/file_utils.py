@@ -75,16 +75,36 @@ def create_musicxml_download(score: stream.Score, filename: str) -> str:
         str: base64로 인코딩된 다운로드 링크
     """
     try:
-        # MusicXML로 변환
-        xml_data = score.write('musicxml')
+        # 임시 파일을 사용하여 MusicXML 생성
+        import tempfile
+        import os
         
-        # base64 인코딩
-        b64 = base64.b64encode(xml_data.encode()).decode()
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.musicxml', delete=False) as temp_file:
+            temp_path = temp_file.name
         
-        # 다운로드 링크 생성
-        href = f'<a href="data:application/vnd.recordare.musicxml+xml;base64,{b64}" download="{filename}">다운로드</a>'
-        
-        return href
+        try:
+            # MusicXML 파일로 저장
+            score.write('musicxml', fp=temp_path)
+            
+            # 파일 읽기
+            with open(temp_path, 'rb') as f:
+                file_data = f.read()
+            
+            # base64 인코딩
+            b64 = base64.b64encode(file_data).decode('utf-8')
+            
+            # 다운로드 링크 생성
+            href = f'<a href="data:application/vnd.recordare.musicxml+xml;base64,{b64}" download="{filename}">📁 {filename} 다운로드</a>'
+            
+            return href
+            
+        finally:
+            # 임시 파일 삭제
+            try:
+                os.unlink(temp_path)
+            except:
+                pass
+                
     except Exception as e:
         print(f"MusicXML 다운로드 생성 실패: {e}")
         return f"<p>다운로드 생성 실패: {e}</p>" 

@@ -10,7 +10,14 @@ from music21 import stream, metadata
 from datetime import datetime
 from typing import Optional, Dict, Any
 
-from ..core import (
+import sys
+from pathlib import Path
+
+# 프로젝트 루트를 Python 경로에 추가
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+from src.core import (
     roman_to_chord,
     generate_progression,
     progression_to_part,
@@ -18,7 +25,7 @@ from ..core import (
     analyze_harmony,
     print_analysis
 )
-from ..utils import create_musicxml_download
+from src.utils import create_musicxml_download
 
 # 페이지 설정
 st.set_page_config(
@@ -194,8 +201,8 @@ def main():
                 help="random: 랜덤, whole: 온음표, half: 2분음표, quarter: 4분음표, eighth: 8분음표"
             )
             
-            use_slurs = st.checkbox("이음줄 사용", value=True)
-            use_ties = st.checkbox("붙임줄 사용", value=True)
+            use_slurs = st.checkbox("이음줄 사용", value=False)
+            use_ties = st.checkbox("붙임줄 사용", value=False)
             only_melody = st.checkbox("멜로디만 출력", value=False)
         else:
             rhythm_option = "random"

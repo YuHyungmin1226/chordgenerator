@@ -16,12 +16,19 @@ from typing import Optional, Dict, Any
 
 from music21 import stream, metadata
 
-from ..core import (
+import sys
+from pathlib import Path
+
+# 프로젝트 루트를 Python 경로에 추가
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+from src.core import (
     generate_progression,
     progression_to_part,
     generate_melody_part
 )
-from ..utils import get_documents_dir
+from src.utils import get_documents_dir
 
 
 class MusicGeneratorGUI:
@@ -127,10 +134,10 @@ class MusicGeneratorGUI:
         self.add_melody_var = tk.BooleanVar(value=True)
         ttk.Checkbutton(option_frame, text="멜로디 추가", variable=self.add_melody_var).grid(row=0, column=0, sticky=tk.W, padx=20, pady=5)
 
-        self.use_slurs_var = tk.BooleanVar(value=True)
+        self.use_slurs_var = tk.BooleanVar(value=False)
         ttk.Checkbutton(option_frame, text="이음줄 사용", variable=self.use_slurs_var).grid(row=0, column=1, sticky=tk.W, padx=20, pady=5)
-
-        self.use_ties_var = tk.BooleanVar(value=True)
+        
+        self.use_ties_var = tk.BooleanVar(value=False)
         ttk.Checkbutton(option_frame, text="붙임줄 사용", variable=self.use_ties_var).grid(row=1, column=0, sticky=tk.W, padx=20, pady=5)
 
         self.only_melody_var = tk.BooleanVar(value=False)
