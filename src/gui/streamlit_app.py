@@ -299,15 +299,7 @@ def main():
                     download_link = create_musicxml_download(score, filename)
                     st.markdown(download_link, unsafe_allow_html=True)
                     
-                    # 악보 미리보기 (선택사항)
-                    if st.checkbox("악보 미리보기 표시"):
-                        try:
-                            st.subheader("🎼 악보 미리보기")
-                            # music21의 show() 메서드를 사용하여 악보 표시
-                            # 실제 구현에서는 다른 방법을 사용할 수 있습니다
-                            st.info("악보 미리보기 기능은 별도 구현이 필요합니다.")
-                        except Exception as e:
-                            st.warning(f"악보 미리보기를 표시할 수 없습니다: {e}")
+
                     
                 except Exception as e:
                     st.error(f"❌ 오류가 발생했습니다: {str(e)}")
