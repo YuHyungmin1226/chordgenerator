@@ -22,6 +22,11 @@ AI 기반 코드 진행 자동 생성 웹 애플리케이션입니다. Streamlit
 - **실시간 미리보기**: 생성된 코드 진행 즉시 확인
 - **MusicXML 내보내기**: 표준 악보 형식 다운로드
 
+### 🛠️ 추가 도구
+- **코어 모듈**: `chord_progression_generator.py` - 독립 실행 가능한 코드 진행 생성기
+- **MusicXML 편집기**: `musicxml_editor.py` - MusicXML 파일 편집 및 변환 도구
+- **배포 가이드**: `STREAMLIT_DEPLOY.md` - Streamlit Cloud 배포 방법
+
 ## 🚀 설치 및 실행
 
 ### 필수 요구사항
@@ -88,9 +93,15 @@ http://localhost:8501
 
 ```
 chordgenerator/
-├── streamlit_chord_generator.py  # 메인 애플리케이션
-├── requirements.txt              # Python 의존성
-└── README.md                    # 프로젝트 문서
+├── streamlit_chord_generator.py    # 메인 Streamlit 애플리케이션
+├── chord_progression_generator.py  # 코드 진행 생성 코어 모듈
+├── musicxml_editor.py             # MusicXML 편집 도구
+├── requirements.txt               # Python 의존성
+├── README.md                     # 프로젝트 문서
+├── README_ORIGINAL.md            # 원본 README 파일
+├── STREAMLIT_DEPLOY.md           # Streamlit 배포 가이드
+├── LICENSE                       # MIT 라이선스
+└── .gitignore                    # Git 무시 파일
 ```
 
 ## 🛠️ 기술 스택
@@ -99,6 +110,8 @@ chordgenerator/
 - **음악 이론**: Music21
 - **언어**: Python 3.8+
 - **스타일링**: CSS (다크모드 지원)
+- **배포**: Streamlit Cloud
+- **버전 관리**: Git & GitHub
 
 ## 🎵 출력 형식
 
