@@ -1,13 +1,13 @@
 # 코드 진행 생성기 의존성 패키지
 
 # 웹 애플리케이션 프레임워크
-streamlit>=1.28.0
+streamlit==1.47.1
 
 # 음악 이론 및 분석 라이브러리
-music21>=9.1.0
+music21==9.1.0
 
 # 시스템 모니터링 (tkinter GUI용)
-psutil>=5.9.0
+psutil==5.9.0
 
 # 타입 힌트 지원
-typing-extensions>=4.0.0 
+typing-extensions==4.0.0 
