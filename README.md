@@ -47,11 +47,35 @@ pip install -r requirements.txt
 ```
 
 3. **애플리케이션 실행**
+
+#### 방법 1: 통합 실행 파일 사용 (권장)
 ```bash
-streamlit run streamlit_chord_generator.py
+# tkinter GUI 실행 (기본)
+python main.py
+
+# Streamlit 웹 앱 실행
+python main.py --streamlit
+
+# MusicXML 편집기 실행
+python main.py --musicxml-editor
+
+# 도움말 보기
+python main.py --help
 ```
 
-4. **브라우저에서 접속**
+#### 방법 2: 직접 실행
+```bash
+# Streamlit 웹 앱
+streamlit run src/gui/streamlit_app.py
+
+# tkinter GUI
+python src/gui/tkinter_gui.py
+
+# MusicXML 편집기
+python src/gui/musicxml_editor.py
+```
+
+4. **브라우저에서 접속** (Streamlit 사용 시)
 ```
 http://localhost:8501
 ```
@@ -93,15 +117,28 @@ http://localhost:8501
 
 ```
 chordgenerator/
-├── streamlit_chord_generator.py    # 메인 Streamlit 애플리케이션
-├── chord_progression_generator.py  # 코드 진행 생성 코어 모듈
-├── musicxml_editor.py             # MusicXML 편집 도구
-├── requirements.txt               # Python 의존성
+├── main.py                       # 메인 실행 파일
+├── setup.py                      # 패키지 설치 스크립트
+├── requirements.txt              # Python 의존성
 ├── README.md                     # 프로젝트 문서
-├── README_ORIGINAL.md            # 원본 README 파일
-├── STREAMLIT_DEPLOY.md           # Streamlit 배포 가이드
 ├── LICENSE                       # MIT 라이선스
-└── .gitignore                    # Git 무시 파일
+├── .gitignore                    # Git 무시 파일
+├── src/                          # 소스 코드
+│   ├── core/                     # 핵심 기능 모듈
+│   │   ├── __init__.py
+│   │   └── chord_generator.py    # 코드 진행 생성 핵심 로직
+│   ├── gui/                      # 사용자 인터페이스
+│   │   ├── __init__.py
+│   │   ├── tkinter_gui.py        # tkinter 데스크톱 GUI
+│   │   ├── streamlit_app.py      # Streamlit 웹 앱
+│   │   └── musicxml_editor.py    # MusicXML 편집 도구
+│   └── utils/                    # 유틸리티 모듈
+│       ├── __init__.py
+│       └── file_utils.py         # 파일 처리 유틸리티
+├── docs/                         # 문서
+│   └── deployment.md             # 배포 가이드
+├── examples/                     # 예제 파일
+└── tests/                        # 테스트 코드
 ```
 
 ## 🛠️ 기술 스택
