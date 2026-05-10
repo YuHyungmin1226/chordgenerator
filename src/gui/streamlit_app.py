@@ -11,6 +11,7 @@ from datetime import datetime
 from typing import Optional, Dict, Any
 import sys
 from pathlib import Path
+from streamlit_autorefresh import st_autorefresh
 
 # 프로젝트 루트를 Python 경로에 추가
 project_root = Path(__file__).parent.parent.parent
@@ -152,6 +153,10 @@ st.markdown("""
 
 def main():
     """메인 애플리케이션 함수"""
+    # 세션 유지를 위한 Heartbeat (10분마다 자동 새로고침)
+    # key는 고유해야 하며, limit은 최대 새로고침 횟수 (None은 무제한)
+    st_autorefresh(interval=10 * 60 * 1000, key="heartbeat")
+
     # 헤더
     st.markdown('<h1 class="main-header">🎵 코드 진행 생성기</h1>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">AI 기반 코드 진행 자동 생성 웹 애플리케이션</p>', unsafe_allow_html=True)

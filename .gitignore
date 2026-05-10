@@ -130,6 +130,7 @@ dmypy.json
 
 # Streamlit
 .streamlit/
+!.streamlit/config.toml
 
 # IDE
 .vscode/
