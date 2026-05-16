@@ -322,7 +322,7 @@ def generate_melody_part(prog: List[str], tonic: str, mode: str = 'major',
         
         total_len = sum([n.quarterLength for n in m.notes])
         if abs(total_len - measure_length) > 0.01:
-            print(f"⚠️ 경고: {i+1}번째 마디의 음표 길이 합({total_len})이 박자({measure_length})와 일치하지 않습니다.")
+            print(f"[WARNING] Measure {i+1}: Total duration ({total_len}) does not match time signature ({measure_length}).")
         
         if i == len(prog) - 1:
             m.rightBarline = 'final'
@@ -454,35 +454,35 @@ def print_analysis(analysis: Dict[str, Any]) -> None:
     Args:
         analysis: 화성 분석 결과
     """
-    print("\n=== 화성학적 분석 ===")
-    print(f"조성: {analysis['key']}")
+    print("\n=== Harmonic Analysis ===")
+    print(f"Key: {analysis['key']}")
     
-    print("\n종지 분석:")
+    print("\nCadence Analysis:")
     if analysis['cadences']:
         for cadence in analysis['cadences']:
             print(f"- {cadence}")
     else:
-        print("- 종지 패턴이 명확하지 않음")
+        print("- No clear cadence pattern found")
     
-    print("\n화성 진행 분석:")
+    print("\nHarmonic Progression Analysis:")
     if analysis['harmonic_progressions']:
         for prog in analysis['harmonic_progressions']:
             print(f"- {prog}")
     else:
-        print("- 특별한 화성 진행 패턴이 없음")
+        print("- No special harmonic patterns found")
     
-    print("\n음계 사용 분석:")
+    print("\nScale Usage Analysis:")
     for degree, count in analysis['scale_usage'].items():
-        print(f"- {degree}: {count}회 사용")
+        print(f"- {degree}: used {count} times")
     
-    print("\n텐션 분석:")
+    print("\nTension Analysis:")
     if analysis['tensions']:
         for tension in analysis['tensions']:
             print(f"- {tension}")
     else:
-        print("- 텐션이 사용되지 않음")
+        print("- No tensions used")
     
-    print("\n음성진행 분석:")
+    print("\nVoice Leading Analysis:")
     if analysis['voice_leading']:
         for leading in analysis['voice_leading']:
             print(f"- {leading}")

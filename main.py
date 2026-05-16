@@ -60,31 +60,31 @@ def main():
     
     try:
         if args.gui:
-            print("[GUI] tkinter GUI를 시작합니다...")
+            print("[GUI] Starting tkinter GUI...")
             from src.gui.tkinter_gui import main as gui_main
             gui_main()
             
         elif args.web:
-            print("[WEB] 로컬 웹 앱을 시작합니다...")
-            print("브라우저에서 http://localhost:5000 을 열어주세요.")
+            print("[WEB] Starting local web app...")
+            print("Please open http://localhost:5000 in your browser.")
             
             from src.web.app import app
             # 로컬 환경이므로 바로 실행
             app.run(host='127.0.0.1', port=5000, debug=False)
             
         elif args.musicxml_editor:
-            print("[EDITOR] MusicXML 편집기를 시작합니다...")
+            print("[EDITOR] Starting MusicXML Editor...")
             from src.gui.musicxml_editor import main as editor_main
             editor_main()
             
     except ImportError as e:
-        print(f"[ERROR] 모듈을 가져올 수 없습니다: {e}")
-        print("필요한 패키지를 설치해주세요:")
+        print(f"[ERROR] Could not import module: {e}")
+        print("Please install required packages:")
         print("  pip install -r requirements.txt")
         sys.exit(1)
         
     except Exception as e:
-        print(f"[ERROR] 오류가 발생했습니다: {e}")
+        print(f"[ERROR] An error occurred: {e}")
         sys.exit(1)
 
 
