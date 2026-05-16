@@ -1,19 +1,4 @@
-# 코드 진행 생성기 의존성 패키지
-# AI 기반 코드 진행 자동 생성 도구
-
-# 웹 애플리케이션 프레임워크
+# Chord Progression Generator Dependencies
 Flask>=3.0.0
-
-# 음악 이론 및 분석 라이브러리
-music21>=9.1.0
-
-# 시스템 모니터링 (tkinter GUI용)
-psutil>=5.9.0
-
-# 타입 힌트 지원
+music21>=10.1.0
 typing-extensions>=4.0.0
-
-# 개발 도구 (선택사항)
-# pytest>=7.0.0
-# black>=22.0.0
-# flake8>=4.0.0 
