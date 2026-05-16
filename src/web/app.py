@@ -95,6 +95,11 @@ def generate():
             'error': str(e)
         }), 500
 
+def run_server():
+    """Start the production-ready waitress server"""
+    from waitress import serve
+    print("[WEB] Starting local web server on http://127.0.0.1:5000")
+    serve(app, host='127.0.0.1', port=5000)
+
 if __name__ == '__main__':
-    # 로컬에서만 실행
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    run_server()

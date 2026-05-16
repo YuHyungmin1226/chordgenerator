@@ -18,9 +18,9 @@ def main():
         print("[WEB] Starting local web app...")
         print("Please open http://localhost:5000 in your browser.")
         
-        from src.web.app import app
-        # Run the Flask app
-        app.run(host='127.0.0.1', port=5000, debug=False)
+        from src.web.app import run_server
+        # Run the production-ready server
+        run_server()
             
     except ImportError as e:
         print(f"[ERROR] Could not import module: {e}")
