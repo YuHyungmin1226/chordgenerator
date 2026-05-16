@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 코드 진행 생성기 | Premium Chord Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <aside class="sidebar glass">
+            <div class="sidebar-header">
+                <span class="logo-icon">🎼</span>
+                <h1>ChordGen</h1>
+            </div>
+            
+            <form id="generator-form">
+                <section class="config-section">
+                    <h3>🎼 기본 설정</h3>
+                    <div class="form-group">
+                        <label for="tonic">키 (Key)</label>
+                        <select id="tonic" name="tonic">
+                            <option value="C">C</option>
+                            <option value="C#">C#</option>
+                            <option value="D">D</option>
+                            <option value="Eb">Eb</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="F#">F#</option>
+                            <option value="G">G</option>
+                            <option value="Ab">Ab</option>
+                            <option value="A">A</option>
+                            <option value="Bb">Bb</option>
+                            <option value="B">B</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mode">조성 (Mode)</label>
+                        <select id="mode" name="mode">
+                            <option value="major">Major</option>
+                            <option value="minor">Minor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time_sig">박자 (Time Sig)</label>
+                        <select id="time_sig" name="time_sig">
+                            <option value="4/4">4/4</option>
+                            <option value="3/4">3/4</option>
+                            <option value="6/8">6/8</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="length">마디 수 (Measures): <span id="length-val">8</span></label>
+                        <input type="range" id="length" name="length" min="2" max="64" value="8" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="structure">구조 (Structure)</label>
+                        <select id="structure" name="structure">
+                            <option value="A">A (단일)</option>
+                            <option value="AABA">AABA (팝송)</option>
+                            <option value="AB">AB (2부 형식)</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="config-section">
+                    <h3>🎶 멜로디 설정</h3>
+                    <div class="form-group checkbox-group">
+                        <label class="switch">
+                            <input type="checkbox" id="add_melody" name="add_melody" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <span>멜로디 추가</span>
+                    </div>
+
+                    <div id="melody-options">
+                        <div class="form-group">
+                            <label for="rhythm_option">리듬 패턴</label>
+                            <select id="rhythm_option" name="rhythm_option">
+                                <option value="random">Random</option>
+                                <option value="whole">Whole (1)</option>
+                                <option value="half">Half (2)</option>
+                                <option value="quarter">Quarter (4)</option>
+                                <option value="eighth">Eighth (8)</option>
+                            </select>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="use_slurs" name="use_slurs">
+                            <label for="use_slurs">이음줄 사용</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="use_ties" name="use_ties">
+                            <label for="use_ties">붙임줄 사용</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="only_melody" name="only_melody">
+                            <label for="only_melody">멜로디만 출력</label>
+                        </div>
+                    </div>
+                </section>
+
+                <button type="submit" id="generate-btn" class="primary-btn">
+                    <span>🎵 코드 진행 생성하기</span>
+                </button>
+            </form>
+        </aside>
+
+        <main class="content">
+            <header class="main-header">
+                <h2>Generated Result</h2>
+                <div id="status-indicator"></div>
+            </header>
+
+            <div id="welcome-view" class="view glass">
+                <div class="welcome-content">
+                    <div class="icon-circle">🎼</div>
+                    <h2>코드 진행 생성기에 오신 것을 환영합니다</h2>
+                    <p>왼쪽 사이드바에서 설정을 조정하고 버튼을 클릭하여 AI 기반 코드 진행을 생성하세요.</p>
+                </div>
+            </div>
+
+            <div id="result-view" class="view glass" style="display: none;">
+                <div class="result-section">
+                    <h3>📝 생성된 코드 진행</h3>
+                    <div id="progression-display" class="code-box"></div>
+                </div>
+
+                <div class="result-section">
+                    <h3>📊 그룹화 분석</h3>
+                    <div id="progression-groups" class="group-grid"></div>
+                </div>
+
+                <div class="result-section">
+                    <h3>🎼 화성학적 분석</h3>
+                    <div class="analysis-card">
+                        <div class="analysis-item">
+                            <span class="label">조성:</span>
+                            <span id="analysis-key" class="value"></span>
+                        </div>
+                        <div class="analysis-details">
+                            <h4>종지 분석</h4>
+                            <ul id="analysis-cadences"></ul>
+                        </div>
+                        <div class="analysis-details">
+                            <h4>화성 진행 분석</h4>
+                            <ul id="analysis-progressions"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section download-section">
+                    <h3>💾 다운로드</h3>
+                    <div id="download-container"></div>
+                </div>
+            </div>
+
+            <div id="loading-view" class="view glass" style="display: none;">
+                <div class="loader-content">
+                    <div class="spinner"></div>
+                    <p>AI가 아름다운 코드 진행을 생성 중입니다...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

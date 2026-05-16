@@ -59,7 +59,7 @@ setup(
     },
     include_package_data=True,
     zip_safe=False,
-    keywords="music, chord, progression, generation, ai, music21, streamlit",
+    keywords="music, chord, progression, generation, ai, music21, flask",
     project_urls={
         "Bug Reports": "https://github.com/YuHyungmin1226/chordgenerator/issues",
         "Source": "https://github.com/YuHyungmin1226/chordgenerator",

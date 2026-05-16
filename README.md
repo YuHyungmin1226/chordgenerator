@@ -1,6 +1,6 @@
 # 🎵 코드 진행 생성기 (Chord Progression Generator)
 
-AI 기반 코드 진행 자동 생성 웹 애플리케이션입니다. Streamlit과 Music21을 사용하여 음악 이론에 기반한 코드 진행과 멜로디를 생성합니다.
+AI 기반 코드 진행 자동 생성 로컬 웹 애플리케이션입니다. Flask와 Music21을 사용하여 음악 이론에 기반한 코드 진행과 멜로디를 생성합니다. 프리미엄 글래스모피즘 UI와 다크 모드를 지원합니다.
 
 ## ✨ 주요 기능
 
@@ -13,19 +13,19 @@ AI 기반 코드 진행 자동 생성 웹 애플리케이션입니다. Streamlit
 ### 🎶 멜로디 생성
 - **코드 기반 멜로디**: 생성된 코드에 맞는 멜로디 라인
 - **리듬 패턴**: 다양한 리듬 옵션 (전체, 반, 4분, 8분음표)
-- **표현 기법**: 이음줄, 붙임줄 지원 (기본값: 해제)
+- **표현 기법**: 이음줄, 붙임줄 지원
 - **옥타브 제한**: 적절한 음역대 유지
 
-### 📊 사용자 인터페이스
-- **직관적인 UI**: Streamlit 기반 웹 인터페이스
-- **다크모드 지원**: 자동 테마 전환
-- **실시간 미리보기**: 생성된 코드 진행 즉시 확인
+### 📊 프리미엄 사용자 인터페이스
+- **현대적인 UI**: 글래스모피즘(Glassmorphism) 기반의 유려한 디자인
+- **다크 모드**: 시력을 보호하는 고급스러운 다크 테마
+- **반응형 레이아웃**: 데스크톱과 모바일 모두 최적화
+- **실시간 생성**: 클릭 한 번으로 즉시 결과 확인 및 분석
 - **MusicXML 내보내기**: 표준 악보 형식 다운로드
 
 ### 🛠️ 추가 도구
-- **tkinter GUI**: 데스크톱 애플리케이션
+- **tkinter GUI**: 데스크톱 애플리케이션 인터페이스
 - **MusicXML 편집기**: MusicXML 파일 편집 및 변환 도구
-- **배포 가이드**: Streamlit Cloud 배포 방법
 
 ## 🚀 설치 및 실행
 
@@ -48,13 +48,16 @@ pip install -r requirements.txt
 
 3. **애플리케이션 실행**
 
-#### 방법 1: 통합 실행 파일 사용 (권장)
-```bash
-# tkinter GUI 실행 (기본)
-python main.py
+#### 방법 1: 배치 파일 사용 (Windows 사용자용, 가장 권장)
+- 폴더 내의 `run.bat` 파일을 더블 클릭하면 메뉴를 통해 원하는 모드를 선택하여 실행할 수 있습니다.
 
-# Streamlit 웹 앱 실행
-python main.py --streamlit
+#### 방법 2: 통합 실행 파일 사용
+```bash
+# 로컬 웹 앱 실행 (Flask)
+python main.py --web
+
+# tkinter GUI 실행
+python main.py --gui
 
 # MusicXML 편집기 실행
 python main.py --musicxml-editor
@@ -65,8 +68,8 @@ python main.py --help
 
 #### 방법 2: 직접 실행
 ```bash
-# Streamlit 웹 앱
-streamlit run src/gui/streamlit_app.py
+# Flask 웹 앱
+python src/web/app.py
 
 # tkinter GUI
 python src/gui/tkinter_gui.py
@@ -75,9 +78,9 @@ python src/gui/tkinter_gui.py
 python src/gui/musicxml_editor.py
 ```
 
-4. **브라우저에서 접속** (Streamlit 사용 시)
+4. **브라우저에서 접속** (웹 앱 실행 시)
 ```
-http://localhost:8501
+http://localhost:5000
 ```
 
 ## 🎹 사용 방법
@@ -95,9 +98,9 @@ http://localhost:8501
 
 ### 멜로디 설정
 - **멜로디 추가**: 코드 진행에 맞는 멜로디 생성
-- **멜로디만 출력**: 코드 없이 멜로디만 표시
-- **이음줄 사용**: 프레이즈 단위 이음줄 추가 (기본값: 해제)
-- **붙임줄 사용**: 마디 넘어가는 같은 음 연결 (기본값: 해제)
+- **이음줄 사용**: 프레이즈 단위 이음줄 추가
+- **붙임줄 사용**: 마디 넘어가는 같은 음 연결
+- **멜로디만 출력**: 코드 반주 없이 멜로디 라인만 출력
 
 ## 🎼 생성되는 코드 진행 패턴
 
@@ -122,34 +125,29 @@ chordgenerator/
 ├── requirements.txt              # Python 의존성
 ├── README.md                     # 프로젝트 문서
 ├── LICENSE                       # MIT 라이선스
-├── .gitignore                    # Git 무시 파일
-├── .streamlit/                   # Streamlit 설정
-│   └── config.toml
 ├── src/                          # 소스 코드
 │   ├── core/                     # 핵심 기능 모듈
 │   │   ├── __init__.py
 │   │   └── chord_generator.py    # 코드 진행 생성 핵심 로직
-│   ├── gui/                      # 사용자 인터페이스
+│   ├── web/                      # Flask 웹 인터페이스 [NEW]
+│   │   ├── app.py                # Flask 서버
+│   │   ├── templates/            # HTML 템플릿
+│   │   └── static/               # CSS, JS 정적 파일
+│   ├── gui/                      # 데스크톱 인터페이스
 │   │   ├── __init__.py
 │   │   ├── tkinter_gui.py        # tkinter 데스크톱 GUI
-│   │   ├── streamlit_app.py      # Streamlit 웹 앱
 │   │   └── musicxml_editor.py    # MusicXML 편집 도구
 │   └── utils/                    # 유틸리티 모듈
 │       ├── __init__.py
 │       └── file_utils.py         # 파일 처리 유틸리티
-├── docs/                         # 문서
-│   └── deployment.md             # 배포 가이드
-└── examples/                     # 예제 파일
-    └── chord_progression_generator_legacy.py
 ```
 
 ## 🛠️ 기술 스택
 
-- **Frontend**: Streamlit
+- **Backend**: Flask (Python)
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
 - **음악 이론**: Music21
-- **언어**: Python 3.8+
-- **스타일링**: CSS (다크모드 지원)
-- **배포**: Streamlit Cloud
+- **UI/UX**: Glassmorphism, Dark Mode
 - **버전 관리**: Git & GitHub
 
 ## 🎵 출력 형식
@@ -157,36 +155,12 @@ chordgenerator/
 ### 화면 출력
 - 코드 진행 로마숫자 표기
 - 4마디씩 그룹화된 표시
-- 실시간 미리보기
+- 화성학적 분석 결과 (조성, 종지 등)
 
 ### 파일 출력
 - **MusicXML**: 표준 악보 형식
 - **호환 프로그램**: MuseScore, Finale, Sibelius, Dorico
 - **파일명**: `{Key}_{Mode}_progression_{Timestamp}.musicxml`
-
-## 🌐 Streamlit Cloud 배포
-
-### 배포 설정
-```
-Repository: YuHyungmin1226/chordgenerator
-Main file path: src/gui/streamlit_app.py
-Python version: 3.8+
-Requirements file: requirements.txt
-```
-
-### 배포 URL
-배포가 완료되면 다음과 같은 URL로 접근 가능:
-```
-https://chordgenerator-xxxxx.streamlit.app
-```
-
-## 🔧 커스터마이징
-
-### 코드 진행 패턴 추가
-`generate_progression()` 함수에서 `basic_patterns` 리스트에 새로운 패턴을 추가할 수 있습니다.
-
-### 멜로디 생성 옵션
-`generate_melody_part()` 함수에서 리듬 패턴, 음역대, 표현 기법을 조정할 수 있습니다.
 
 ## 🤝 기여하기
 
@@ -207,13 +181,9 @@ https://chordgenerator-xxxxx.streamlit.app
 ## 🙏 감사의 말
 
 - [Music21](https://web.mit.edu/music21/) - 음악 이론 및 분석 라이브러리
-- [Streamlit](https://streamlit.io/) - 웹 애플리케이션 프레임워크
+- [Flask](https://flask.palletsprojects.com/) - 웹 애플리케이션 프레임워크
 - 음악 이론 커뮤니티 - 코드 진행 패턴 제공
-
-## 📞 문의
-
-프로젝트에 대한 질문이나 제안사항이 있으시면 [Issues](https://github.com/YuHyungmin1226/chordgenerator/issues)를 통해 연락해주세요.
 
 ---
 
-⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요! 
+⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요!
